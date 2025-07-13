@@ -1,16 +1,8 @@
-import './assets/main.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap'
-
 import { createApp } from 'vue'
 import App from './App.vue'
-
-// Toastification eklemesi
-import Toast from 'vue-toastification'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
 import 'vue-toastification/dist/index.css'
+import Toast from 'vue-toastification'
 
-const app = createApp(App)
-
-app.use(Toast)
-
-app.mount('#app')
+createApp(App).use(Toast).mount('#app')

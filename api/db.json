@@ -1,21 +1,13 @@
 {
   "products": [
     {
-      "id": "2",
-      "categoryId": 1,
-      "productName": "Change",
-      "quantityPerUnit": "24 - 12 oz bottles",
-      "unitPrice": "21",
-      "unitsInStock": 17,
-      "isEditing": true
-    },
-    {
       "id": "4",
       "categoryId": 1,
-      "productName": "Chef Anton's Cajun Seasoning",
+      "productName": "Chef Anton's Cajun Seasoningg",
       "quantityPerUnit": "48 - 6 oz jars",
-      "unitPrice": "222",
-      "unitsInStock": 53
+      "unitPrice": 2222,
+      "unitsInStock": 53,
+      "isEditing": true
     },
     {
       "id": "5",

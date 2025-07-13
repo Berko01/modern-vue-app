@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:3000/products'
+const API = axios.create({
+  baseURL: 'http://localhost:3000'
+})
 
-export const getProducts = () => axios.get(BASE_URL)
-
-export const addProduct = (product) => axios.post(BASE_URL, product)
-
-export const updateProduct = (product) => axios.put(`${BASE_URL}/${product.id}`, product)
-
-export const deleteProduct = (id) => axios.delete(`${BASE_URL}/${id}`)
+export const getProducts = () => API.get('/products')
+export const addProduct = (product) => API.post('/products', product)
+export const updateProduct = (product) => API.put(`/products/${product.id}`, product)
+export const deleteProduct = (id) => API.delete(`/products/${id}`)
