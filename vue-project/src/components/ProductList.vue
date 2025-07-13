@@ -37,7 +37,7 @@
             >
               {{ product.isEditing ? 'Kaydet' : 'Güncelle' }}
             </button>
-            <button class="btn btn-danger btn-sm" @click="$emit('delete-product', product.id)">
+            <button class="btn btn-danger btn-sm" @click="deleteProduct(product.id)">
               Sil
             </button>
           </td>
@@ -49,22 +49,28 @@
 
 <script setup>
 import { ref, watchEffect, toRaw } from 'vue'
+import { useProductStore } from '@/stores/productStore'
+import { storeToRefs } from 'pinia'
+import { useToast } from 'vue-toastification'
 
-const props = defineProps({
-  products: Array
-})
-
-const emit = defineEmits(['delete-product', 'save-product'])
+const toast = useToast()
+const productStore = useProductStore()
+const { products } = storeToRefs(productStore)
 
 const localProducts = ref([])
 
 watchEffect(() => {
-  localProducts.value = props.products.map(p => ({ ...p, isEditing: false }))
+  localProducts.value = products.value.map(p => ({ ...p, isEditing: false }))
 })
 
-function toggleEdit(product) {
+async function toggleEdit(product) {
   if (product.isEditing) {
-    emit('save-product', toRaw(product))
+    try {
+      await productStore.updateProduct(toRaw(product))
+      toast.success('Güncellendi!')
+    } catch {
+      toast.error('Güncelleme hatası!')
+    }
     product.isEditing = false
   } else {
     localProducts.value.forEach(p => {
@@ -72,4 +78,19 @@ function toggleEdit(product) {
     })
   }
 }
+
+async function deleteProduct(id) {
+  try {
+    await productStore.deleteProduct(id)
+    toast.success('Ürün silindi!')
+  } catch {
+    toast.error('Silme hatası!')
+  }
+}
 </script>
+
+<style scoped>
+input {
+  width: 100%;
+}
+</style>

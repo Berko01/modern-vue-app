@@ -1,29 +1,13 @@
 {
   "products": [
     {
-      "id": "4",
-      "categoryId": 1,
-      "productName": "Chef Anton's Cajun Seasoningg",
-      "quantityPerUnit": "48 - 6 oz jars",
-      "unitPrice": 2222,
-      "unitsInStock": 53,
-      "isEditing": true
-    },
-    {
-      "id": "5",
-      "categoryId": 2,
-      "productName": "Chef Anton's Gumbo Mix",
-      "quantityPerUnit": "36 boxes",
-      "unitPrice": "21",
-      "unitsInStock": 0
-    },
-    {
       "id": "6",
       "categoryId": 2,
       "productName": "Grandma's Boysenberry Spread",
-      "quantityPerUnit": "12 - 8 oz jars",
+      "quantityPerUnit": "12 - 8 oz jarss",
       "unitPrice": 25,
-      "unitsInStock": 120
+      "unitsInStock": 120,
+      "isEditing": true
     },
     {
       "id": "7",
@@ -606,6 +590,14 @@
       "categoryId": 0,
       "productName": "yeni urun",
       "quantityPerUnit": "test",
+      "unitPrice": 0,
+      "unitsInStock": 0
+    },
+    {
+      "id": null,
+      "categoryId": 0,
+      "productName": "test2",
+      "quantityPerUnit": "test2",
       "unitPrice": 0,
       "unitsInStock": 0
     }

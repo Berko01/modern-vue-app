@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <ProductAdd @add-product="addProduct" />
     <ProductList
-      :products="products"
+      :products="productStore.products"
       @delete-product="deleteProduct"
       @save-product="saveProduct"
     />
@@ -10,24 +10,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useToast } from 'vue-toastification'
 import ProductAdd from '@/components/ProductAdd.vue'
 import ProductList from '@/components/ProductList.vue'
-import {
-  getProducts,
-  addProduct as apiAddProduct,
-  updateProduct as apiUpdateProduct,
-  deleteProduct as apiDeleteProduct
-} from '@/services/productService'
+import { useProductStore } from '@/stores/productStore'
 
 const toast = useToast()
-const products = ref([])
+const productStore = useProductStore()
 
 onMounted(async () => {
   try {
-    const { data } = await getProducts()
-    products.value = data
+    await productStore.fetchProducts()
   } catch {
     toast.error('Ürünler yüklenemedi!')
   }
@@ -35,8 +29,7 @@ onMounted(async () => {
 
 async function addProduct(newProduct) {
   try {
-    const { data } = await apiAddProduct(newProduct)
-    products.value.push(data)
+    await productStore.addProduct(newProduct)
     toast.success('Ürün eklendi!')
   } catch {
     toast.error('Ekleme başarısız!')
@@ -45,8 +38,7 @@ async function addProduct(newProduct) {
 
 async function deleteProduct(id) {
   try {
-    await apiDeleteProduct(id)
-    products.value = products.value.filter(p => p.id !== id)
+    await productStore.deleteProduct(id)
     toast.success('Ürün silindi!')
   } catch {
     toast.error('Silme başarısız!')
@@ -55,9 +47,7 @@ async function deleteProduct(id) {
 
 async function saveProduct(product) {
   try {
-    const { data } = await apiUpdateProduct(product)
-    const index = products.value.findIndex(p => p.id === data.id)
-    if (index !== -1) products.value[index] = data
+    await productStore.updateProduct(product)
     toast.success('Ürün güncellendi!')
   } catch {
     toast.error('Güncelleme hatası!')
